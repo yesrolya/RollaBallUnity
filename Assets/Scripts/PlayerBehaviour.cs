@@ -4,26 +4,25 @@ using UnityEngine;
 
 public class PlayerBehaviour : MonoBehaviour
 {
-    public float speed = 10.0f;
-    public float rotationSpeed = 100.0f;
+    public float speed = 5.0f;
+    public float rotationSpeed = 50.0f;
     [SerializeField] private GameObject panel;
     [SerializeField] private GameObject textWin;
-    private bool menu = false;
     
+    private bool menu;
+    private void Start()
+    {
+        menu = false;
+    }
+
     void Update()
     {
         //Escape button
-        if (Input.GetKey(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (!menu)
-            {
-
-            }
-            else
-            {
-
-            }
             menu = !menu;
+            panel.SetActive(menu);
+            Debug.Log(menu);
         }
     }
 
