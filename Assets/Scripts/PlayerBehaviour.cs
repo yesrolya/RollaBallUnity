@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class PlayerBehaviour : MonoBehaviour
 {
-    public float speed = 5.0f;
-    public float rotationSpeed = 50.0f;
+    public float speed = 10.0f;
+    private Rigidbody rb;
     [SerializeField] private GameObject panel;
     [SerializeField] private GameObject textWin;
-    
+
     private bool menu;
     private void Start()
     {
         menu = false;
+        //GetComponent<Rigidbody>().freezeRotation = true;
+        rb = GetComponent<Rigidbody>();
     }
 
     void Update()
@@ -32,14 +34,11 @@ public class PlayerBehaviour : MonoBehaviour
         if (!menu)
         {
             //movement
-            float translation = Input.GetAxis("Vertical") * speed;
-            float rotation = Input.GetAxis("Horizontal") * rotationSpeed;
+            float horizontalMovement = Input.GetAxis("Horizontal");
+            float verticalMovement = Input.GetAxis("Vertical");
 
-            translation *= Time.deltaTime;
-            rotation *= Time.deltaTime;
-
-            transform.Translate(0, 0, translation);
-            transform.Rotate(0, rotation, 0);
+            Vector3 movement = new Vector3(horizontalMovement, 0f, verticalMovement);
+            rb.AddForce(movement * speed);
         }
     }
 }
